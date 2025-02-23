@@ -1,14 +1,31 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <ctime>
 #include "owner.h"
 
 using namespace std;
+
+string getCurrentDate() {
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+
+    string day = to_string(ltm->tm_mday);
+    string month = to_string(ltm->tm_mon + 1);
+    string year = to_string(ltm->tm_year + 1900);
+
+    // Ensure day and month are two digits
+    if (day.length() == 1) day = "0" + day;
+    if (month.length() == 1) month = "0" + month;
+
+    return day + "/" + month + "/" + year;
+}
 
 void showMenu() {
     cout << "\n=================================\n";
     cout << "     Movie Rental System Menu     \n";
     cout << "=================================\n";
+    cout << "0. Test Current Date\n";  // Keeping this for testing
     cout << "1. View Movie Inventory\n";
     cout << "2. View Customer List\n";
     cout << "3. Rent a Movie\n";
@@ -19,26 +36,31 @@ void showMenu() {
     cout << "8. View All Transactions\n";
     cout << "9. Exit\n";
     cout << "=================================\n";
-    cout << "Choose an option (1-9): ";
+    cout << "Choose an option (0-9): ";
 }
 
 void displaySeparator() {
     cout << "\n---------------------------------\n";
 }
 
-
 int getMenuChoice() {
     int choice;
     while (!(cin >> choice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input. Please enter a number (1-9): ";
+        cout << "Invalid input. Please enter a number (0-9): ";
     }
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return choice;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Check for test mode
+    if (argc > 1 && string(argv[1]) == "--test-date") {
+        cout << "Current system date: " << getCurrentDate() << endl;
+        return 0;
+    }
+
     Owner owner;
 
     while (true) {
@@ -47,6 +69,11 @@ int main() {
         displaySeparator();
 
         switch (choice) {
+            case 0: {
+                cout << "Current system date: " << getCurrentDate() << endl;
+                break;
+            }
+
             case 1:
                 owner.viewInventory();
                 break;
@@ -70,8 +97,8 @@ int main() {
                 cout << "Enter Movie Title: ";
                 getline(cin, movieTitle);
 
-                // Automatically use today's date
-                string rentalDate = "23/02/2025";  // Today's date in DD/MM/YYYY format
+                // Use dynamic current date for rental
+                string rentalDate = getCurrentDate();
 
                 Customer* customer = owner.findCustomer(customerID);
                 if (customer) {
@@ -101,7 +128,7 @@ int main() {
                 cout << "Enter Return Date (DD/MM/YYYY) or press Enter for today's date: ";
                 getline(cin, returnDate);
                 if (returnDate.empty()) {
-                    returnDate = "23/02/2025";  // Today's date
+                    returnDate = getCurrentDate();  // Use current date if no date provided
                 }
 
                 Customer* customer = owner.findCustomer(customerID);
@@ -166,7 +193,7 @@ int main() {
                 return 0;
 
             default:
-                cout << "Invalid choice. Please enter a number between 1 and 9.\n";
+                cout << "Invalid choice. Please enter a number between 0 and 9.\n";
                 break;
         }
         displaySeparator();
