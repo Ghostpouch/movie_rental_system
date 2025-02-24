@@ -25,7 +25,6 @@ void showMenu() {
     cout << "\n=================================\n";
     cout << "     Movie Rental System Menu     \n";
     cout << "=================================\n";
-    cout << "0. Test Current Date\n";  // Keeping this for testing
     cout << "1. View Movie Inventory\n";
     cout << "2. View Customer List\n";
     cout << "3. Rent a Movie\n";
@@ -36,7 +35,7 @@ void showMenu() {
     cout << "8. View All Transactions\n";
     cout << "9. Exit\n";
     cout << "=================================\n";
-    cout << "Choose an option (0-9): ";
+    cout << "Choose an option (1-9): ";
 }
 
 void displaySeparator() {
@@ -48,7 +47,7 @@ int getMenuChoice() {
     while (!(cin >> choice)) {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Invalid input. Please enter a number (0-9): ";
+        cout << "Invalid input. Please enter a number (1-9): ";
     }
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return choice;
@@ -69,11 +68,6 @@ int main(int argc, char* argv[]) {
         displaySeparator();
 
         switch (choice) {
-            case 0: {
-                cout << "Current system date: " << getCurrentDate() << endl;
-                break;
-            }
-
             case 1:
                 owner.viewInventory();
                 break;
@@ -193,7 +187,7 @@ int main(int argc, char* argv[]) {
                 return 0;
 
             default:
-                cout << "Invalid choice. Please enter a number between 0 and 9.\n";
+                cout << "Invalid choice. Please enter a number between 1 and 9.\n";
                 break;
         }
         displaySeparator();
