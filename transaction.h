@@ -1,13 +1,14 @@
-#ifndef TRANSACTION_H
-#define TRANSACTION_H
+#ifndef TRANSACTION_H // Check if TRANSACTION_H is not already defined
+#define TRANSACTION_H // Define TRANSACTION_H to prevent multiple inclusions
 
-#include <string>
-#include <iostream>
-#include "customer.h"
-#include "movie.h"
+#include <string> // String library for handling text
+#include <iostream> // Input-output library
+#include "customer.h" // Include this file
+#include "movie.h" // Include this file
 
-using namespace std;
+using namespace std; // Don't need to use prefixes
 
+// Define owner class
 class Transaction {
 private:
     static int nextTransactionID;
@@ -45,22 +46,20 @@ public:
         dueDate = calculateDueDate(rentDate);
     }
 
-    float calculateLateFee(const string& returnDate) const {  
-        int returnDay = stoi(returnDate.substr(0, 2));
-        int returnMonth = stoi(returnDate.substr(3, 2));
-        int returnYear = stoi(returnDate.substr(6, 4));
+    int convertToTotalDays(const string& date) const {
+        int day = stoi(date.substr(0, 2));
+        int month = stoi(date.substr(3, 2));
+        int year = stoi(date.substr(6, 4));
+        
+        return day + (month * 30) + (year * 365);
+    }
 
-        int dueDay = stoi(dueDate.substr(0, 2));
-        int dueMonth = stoi(dueDate.substr(3, 2));
-        int dueYear = stoi(dueDate.substr(6, 4));
-
-        if (returnYear > dueYear || 
-            (returnYear == dueYear && returnMonth > dueMonth) || 
-            (returnYear == dueYear && returnMonth == dueMonth && returnDay > dueDay)) {
-            int overdueDays = (returnDay - dueDay) + (returnMonth - dueMonth) * 30 + (returnYear - dueYear) * 365;
-            return overdueDays > 0 ? overdueDays * LATE_FEE_PER_DAY : 0.0f;
-        }
-        return 0.0f;
+    float calculateLateFee(const string& returnDate) const {
+        int dueDays = convertToTotalDays(dueDate);
+        int returnDays = convertToTotalDays(returnDate);
+        
+        int overdueDays = returnDays - dueDays;
+        return overdueDays > 0 ? overdueDays * LATE_FEE_PER_DAY : 0.0f;
     }
 
     const Movie* getMovie() const { return movie; }

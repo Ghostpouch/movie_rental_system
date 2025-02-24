@@ -1,6 +1,6 @@
-#include "transaction.h"
+#include "transaction.h" // Include this file
 
-using namespace std;
+using namespace std; // Don't need to use prefixes
 
-// Initialize the static member
+// Set the initial transaction ID to 1
 int Transaction::nextTransactionID = 1;
