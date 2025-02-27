@@ -205,20 +205,12 @@ int main() {
 
                 // Call removeMovie method to remove movie from inventory
                 owner.removeMovie(movieTitle);
-
                 break; // removeMovie will print confirmation
             }
 
 
-            case 8: { // VIEW ALL TRANSACTIONS - Display list of all transactions by iterating over the transaction history.
-                cout << "\n--- All Transactions ---\n"; // Print header for list
-                
-                // Loop through transactions stored in owners system
-                for (const auto& transaction : owner.getTransactions()) { 
-                    // Call displayTransaction method for each transaction to show its details
-                    transaction.displayTransaction(); 
-                    cout << endl; // Print a newline between transactions
-                }
+            case 8: { // Only the owner can see transactions
+                owner.viewTransactions();
                 break;
             }
 

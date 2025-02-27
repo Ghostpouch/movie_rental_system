@@ -81,6 +81,19 @@ public:
         }
     }
 
+    // Display all transactions
+    void viewTransactions() const {
+        cout << "\n--- All Transactions ---\n"; // Header
+        if (transactions.empty()) {
+            cout << "No transactions to display.\n"; // Message for no transactions
+            return;
+        }
+        for (const auto& transaction : transactions) { // Or go through list and display each
+            transaction.displayTransaction();
+            cout << endl;
+        }
+    }
+
     const vector<Movie>& getMovies() const { return movies; } // Return a reference to the list of movies
     const vector<Transaction>& getTransactions() const { return transactions; } // Return a reference to the list of transactions
 
