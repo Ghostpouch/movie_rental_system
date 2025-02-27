@@ -26,9 +26,9 @@ string getCurrentDate() {
 
 // MENU DISPLAY
 void showMenu() {
-    cout << "\n=================================\n";
-    cout << "     Movie Rental System Menu     \n";
-    cout << "=================================\n";
+    cout << "\n===========================================\n";
+    cout << "     Elaine's Movie Rental System Menu     \n";
+    cout << "===========================================\n";
     cout << "1. View Movie Inventory\n";
     cout << "2. View Customer List\n";
     cout << "3. Rent a Movie\n";
@@ -38,13 +38,13 @@ void showMenu() {
     cout << "7. Remove a Movie\n";
     cout << "8. View All Transactions\n";
     cout << "9. Exit\n";
-    cout << "=================================\n";
+    cout << "===========================================\n";
     cout << "Choose an option (1-9): ";
 }
 
 //DISPLAY SEPARATOR FOR AFTER EACH ACTION
 void displaySeparator() {
-    cout << "\n---------------------------------\n";
+    cout << "\n-------------------------------------------\n";
 }
 
 // GET USER INPUT AND VALIDATE
@@ -223,7 +223,7 @@ int main() {
             }
 
             case 9:// EXIT PROGRAM - Display goodbye message and exits program. 
-                cout << "\nThank you for using the Movie Rental System. Goodbye!\n"; // Print message
+                cout << "\nThank you for using Elaine's Movie Rental System. Goodbye!\n"; // Print message
                 return 0; // Exit the program
 
             default: // Handle invalid menu choices
