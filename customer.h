@@ -20,10 +20,8 @@ private:
 public:
     Customer(string n, int id) : name(n), customerID(id) {} // Constructor - Initialises the customer with a name and ID
 
-    // Destructor
+    // Destructor - Clears the list of rented movies when a Customer object is destroyed
     ~Customer() {
-        // Clear rentedMovies vector - we don't delete the Movie objects 
-        // since they're owned by the Owner class
         rentedMovies.clear();
     }
 
