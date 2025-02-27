@@ -20,6 +20,13 @@ private:
 public:
     Customer(string n, int id) : name(n), customerID(id) {} // Constructor - Initialises the customer with a name and ID
 
+    // Destructor
+    ~Customer() {
+        // Clear rentedMovies vector - we don't delete the Movie objects 
+        // since they're owned by the Owner class
+        rentedMovies.clear();
+    }
+
     string getName() const { return name; } // Getter for customer name
     int getCustomerID() const { return customerID; } // Getter for customer ID
 
