@@ -209,8 +209,16 @@ int main() {
             }
 
 
-            case 8: { // Only the owner can see transactions
-                owner.viewTransactions();
+            case 8: { // Require password authentication for owner
+                string password;
+                cout << "Enter owner password to view transactions: ";
+                getline(cin, password);
+                
+                if (owner.authenticate(password)) {
+                    owner.viewTransactions();
+                } else {
+                    cout << "Authentication failed. Only the owner can view transactions.\n";
+                }
                 break;
             }
 

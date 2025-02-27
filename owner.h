@@ -15,9 +15,16 @@ private:
     vector<Movie> movies; // List of movies
     vector<Customer> customers; // List of customers
     vector<Transaction> transactions; // List of transactions
+    string password;  // Password for owner authentication
 
 public:
-    Owner() { // Constructor to initialise movies and customers
+    bool authenticate(const string& enteredPassword) const { // Method to authenticate owner
+        return enteredPassword == password;
+    }
+    Owner() {
+        
+        password = "owner123"; // Set owner password (could be stored securely)
+        
         
         movies = { // Initialise movies list with some predefined objects
             Movie("Alien", "Horror/Sci-Fi"),
